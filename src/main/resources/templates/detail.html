@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Staff Rating Details</title>
+</head>
+<body>
+
+<h1>Staff Rating Details</h1>
+
+<h2 th:text="${rating.name}">Staff Name</h2>
+
+<p>
+    <strong>Email:</strong>
+    <span th:text="${rating.email}">email@example.com</span>
+</p>
+
+<p>
+    <strong>Role:</strong>
+    <span th:text="${rating.roleType}">TA</span>
+</p>
+
+<div class="staff-profile-badge">
+    <p><strong>Role Classification:</strong> <span th:text="${rating.profile.displayTitle()}">Role Title</span></p>
+</div>
+
+<p>
+    <strong>Clarity:</strong>
+    <span th:text="${rating.clarity}">8</span>/10
+</p>
+
+<p>
+    <strong>Niceness:</strong>
+    <span th:text="${rating.niceness}">9</span>/10
+</p>
+
+<p>
+    <strong>Knowledge:</strong>
+    <span th:text="${rating.knowledgeableScore}">8</span>/10
+</p>
+
+<p>
+    <strong>Overall score:</strong>
+    <span th:text="${#numbers.formatDecimal((rating.clarity + rating.niceness + rating.knowledgeableScore) / 3.0, 1, 1)}">
+        8.3
+    </span>/10
+</p>
+
+<p>
+    <strong>Comment:</strong>
+    <span th:text="${rating.comment != null and !rating.comment.isBlank() ? rating.comment : 'No comment provided'}">
+        No comment provided
+    </span>
+</p>
+
+<p>
+    <strong>Created:</strong>
+    <span th:text="${rating.createdAt}">Date</span>
+</p>
+
+<p>
+    <strong>Last updated:</strong>
+    <span th:text="${rating.updatedAt}">Date</span>
+</p>
+
+<a th:href="@{/ratings/{id}/edit(id=${rating.id})}">Edit</a>
+
+<form th:action="@{/ratings/{id}/delete(id=${rating.id})}"
+      method="post"
+      onsubmit="return confirm('Are you sure you want to delete this rating?');">
+    <button type="submit">Delete</button>
+</form>
+
+<br>
+<a th:href="@{/}">Back to all ratings</a>
+
+</body>
+</html>

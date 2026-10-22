@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rate CS Teaching Staff | SFU</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-content">
+        <a th:href="@{/}" class="brand">
+            <span class="brand-icon">SFU</span>
+            <span>CS Staff Ratings</span>
+        </a>
+        <span class="header-label">STUDENT COMMUNITY</span>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">COMPUTING SCIENCE</span>
+            <h1>Rate CS Teaching Staff</h1>
+            <p>
+                Share your experience and help fellow students
+                make informed decisions about their learning.
+            </p>
+            <a th:href="@{/ratings/new}" class="button button-primary">
+                <span aria-hidden="true">+</span> Add a New Rating
+            </a>
+        </div>
+        <div class="hero-decoration" aria-hidden="true">CS</div>
+    </section>
+
+    <section class="ratings-section">
+        <div class="section-heading">
+            <div>
+                <h2>Staff Ratings</h2>
+                <p>Explore feedback from the student community.</p>
+            </div>
+            <span class="rating-count">
+                <span th:text="${#lists.size(ratings)}">0</span>
+                <span th:text="${#lists.size(ratings) == 1 ? 'rating' : 'ratings'}">ratings</span>
+            </span>
+        </div>
+
+        <div class="empty-state"
+             th:if="${#lists.isEmpty(ratings)}">
+            <div class="empty-icon" aria-hidden="true">☆</div>
+            <h3>Be the first to share feedback</h3>
+            <p>No ratings have been submitted yet. Help your
+               fellow students by adding the first one.</p>
+            <a th:href="@{/ratings/new}" class="button button-primary">
+                Add Your First Rating
+            </a>
+        </div>
+
+        <div class="table-wrapper"
+             th:unless="${#lists.isEmpty(ratings)}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Teaching Staff</th>
+                        <th>Role</th>
+                        <th>Overall Score</th>
+                        <th class="details-heading"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="rating : ${ratings}">
+                        <td>
+                            <div class="staff-cell">
+                                <span class="avatar"
+                                      th:text="${#strings.substring(rating.name, 0, 1).toUpperCase()}">
+                                    S
+                                </span>
+                                <span class="staff-name"
+                                      th:text="${rating.name}">
+                                    Staff Name
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="role-badge"
+                                  th:text="${rating.roleType}">
+                                TA
+                            </span>
+                        </td>
+                        <td>
+                            <span class="score"
+                                  th:text="${#numbers.formatDecimal((rating.clarity + rating.niceness + rating.knowledgeableScore) / 3.0, 1, 1)}">
+                                8.3
+                            </span>
+                            <span class="score-out-of">/ 10</span>
+                        </td>
+                        <td>
+                            <a class="details-link"
+                               th:href="@{/ratings/{id}(id=${rating.id})}">
+                                View details <span aria-hidden="true">→</span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>Rate CS Teaching Staff <span>·</span> SFU Computing Science</p>
+        <p>Share your experience. Support your community.</p>
+    </footer>
+
+</main>
+
+</body>
+</html>
+
