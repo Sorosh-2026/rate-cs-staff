@@ -20,7 +20,7 @@ spring.datasource.password=your_postgres_password
 
 1. Push this repository to GitHub.
 2. In Render, choose **New > Blueprint** and select this repository.
-3. Render will create `rate-cs-staff` and `rate-cs-staff-db` and connect their environment variables.
+3. Render creates `rate-cs-staff` and `rate-cs-staff-db` and connects the database variables automatically.
 4. Wait for the first deploy to complete, then open the generated Render URL.
 
-The application uses `${PORT:8080}` and accepts database settings from `DATABASE_JDBC_URL`, `DB_USERNAME`, and `DB_PASSWORD`. The included `render.yaml` provisions these values automatically.
+The app accepts `PORT`, `DATABASE_JDBC_URL`, `DATABASE_URL`, or the individual `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` variables. The included `render.yaml` provisions the split `DB_*` variables automatically.
