@@ -6,6 +6,18 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /
     envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: rate-cs-staff-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: rate-cs-staff-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: rate-cs-staff-db
+          property: database
       - key: DB_USERNAME
         fromDatabase:
           name: rate-cs-staff-db
@@ -14,10 +26,6 @@ services:
         fromDatabase:
           name: rate-cs-staff-db
           property: password
-      - key: DATABASE_JDBC_URL
-        fromDatabase:
-          name: rate-cs-staff-db
-          property: jdbcUrl
 
 databases:
   - name: rate-cs-staff-db
