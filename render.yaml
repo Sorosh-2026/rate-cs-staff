@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: rate-cs-staff
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: DB_USERNAME
+        fromDatabase:
+          name: rate-cs-staff-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: rate-cs-staff-db
+          property: password
+      - key: DATABASE_JDBC_URL
+        fromDatabase:
+          name: rate-cs-staff-db
+          property: jdbcUrl
+
+databases:
+  - name: rate-cs-staff-db
+    plan: free
