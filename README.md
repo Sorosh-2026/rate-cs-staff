@@ -1,23 +1,26 @@
-# Rate CS Teaching Staff (Iteration 1)
+# Rate CS Teaching Staff
 
-A Spring Boot full-CRUD web application built with Thymeleaf and PostgreSQL that allows students to view, add, edit, and delete ratings for Computer Science teaching staff.
+A Spring Boot full-CRUD web application built with Thymeleaf and PostgreSQL.
 
-## Features
-- **Full CRUD Operations:** View a summary list, view detailed attributes, add new staff ratings, edit existing entries, and delete ratings.
-- **Server-Side Validation:** Form validation guarding email format, score ranges ([1, 10]), non-empty names, and duplicate email checks.
-- **OO Design / Polymorphism:** Utilizes an abstract `StaffMemberProfile` class with concrete subclasses (`ProfessorProfile`, `TaProfile`) to render polymorphic role titles dynamically in the UI.
-- **Robust Test Suite:** Includes slice tests (`@WebMvcTest`, `@DataJpaTest`) and bean validation tests.
+## Run locally
 
-## How to Run Locally
+Prerequisites: Java 21 and PostgreSQL.
 
-1. **Prerequisites:** 
-   - Java 17 or higher installed.
-   - Local PostgreSQL instance running.
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/rate_staff
+spring.datasource.username=postgres
+spring.datasource.password=your_postgres_password
+```
 
-2. **Configure Database:**
-   Update your `src/main/resources/application.properties` with your local PostgreSQL credentials:
-   ```properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/ratcsstaff_db
-   spring.datasource.username=your_postgres_username
-   spring.datasource.password=your_postgres_password
-   spring.jpa.hibernate.ddl-auto=update
+```bash
+./mvnw spring-boot:run
+```
+
+## Deploy to Render
+
+1. Push this repository to GitHub.
+2. In Render, choose **New > Blueprint** and select this repository.
+3. Render will create `rate-cs-staff` and `rate-cs-staff-db` and connect their environment variables.
+4. Wait for the first deploy to complete, then open the generated Render URL.
+
+The application uses `${PORT:8080}` and accepts database settings from `DATABASE_JDBC_URL`, `DB_USERNAME`, and `DB_PASSWORD`. The included `render.yaml` provisions these values automatically.
